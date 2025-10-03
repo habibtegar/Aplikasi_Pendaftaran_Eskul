@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Pendaftaran Ekskul</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="index.html">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>EkskulApp</h2>
+    <nav>
+      <a href="beranda.html">Beranda</a>
+      <a href="daftar.html">Daftar Ekskul</a>
+      <a href="index.html" class="logout">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h1>Dashboard Pendaftaran Ekskul</h1>
+    </header>
+
+    <section class="form-section">
+      <h2>Form Pendaftaran Ekskul</h2>
+      <form>
+        <input type="text" placeholder="Nama" required>
+        <input type="text" placeholder="Kelas" required>
+        <select required>
+          <option value="">Pilih Ekskul</option>
+          <option>Basket</option>
+          <option>Volly</option>
+          <option>Futsal</option>
+          <option>Pramuka</option>
+          <option>Paskibra</option>
+          <option>Handball</option>
+        </select>
+        <input type="text" placeholder="Alasan" required>
+        <button type="submit">Daftar</button>
+      </form>
+    </section>
