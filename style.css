@@ -1,0 +1,184 @@
+/* Font & Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* Auth Pages */
+.auth-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #43e97b, #38f9d7);
+}
+
+.auth-container {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.auth-container input, .auth-container button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.auth-container input {
+  background: rgba(255,255,255,0.7);
+}
+
+.auth-container button {
+  background: #4facfe;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-container button:hover {
+  background: #00c6ff;
+}
+
+.auth-container p {
+  color: white;
+  margin-top: 10px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+  color: white;
+  text-align: center;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.sidebar nav a:hover {
+  background: red;
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 30px;
+}
+
+header h1 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Ekskul List */
+.eksul-list .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+  gap: 15px;
+}
+
+.card {
+  background: rgba(255,255,255,0.3);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.5);
+}
+
+/* Schedule Table */
+.schedule table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.schedule th, .schedule td {
+  padding: 12px;
+  text-align: left;
+  color: white;
+}
+
+.schedule th {
+  background: rgba(0,0,0,0.2);
+}
+
+/* Form Section */
+.form-section form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-section input, .form-section select, .form-section button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+.form-section input, .form-section select {
+  background: rgba(255,255,255,0.7);
+}
+
+.form-section button {
+  background: #43e97b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-section button:hover {
+  background: #38f9d7;
+}
