@@ -1,53 +1,74 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Ekskul</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="index.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Ekskul - Beranda</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <h2>EkskulApp</h2>
-    <nav>
-      <a href="beranda.html">Beranda</a>
-      <a href="daftar.html">Daftar Ekskul</a>
-      <a href="index.html" class="logout">Logout</a>
-    </nav>
-  </aside>
+  <aside class="sidebar">
+    <h2>EkskulApp</h2>
+    <nav>
+      <a href="beranda.html" class="active">Beranda</a>       <a href="daftar.html">Daftar Ekskul</a>
+      <a href="index.html" class="logout">Logout</a>
+    </nav>
+  </aside>
 
-  <main class="main-content">
-    <header>
-      <h1>Dashboard Pendaftaran Ekskul</h1>
-    </header>
+  <main class="main-content">
+    <header>
+      <h1>Dashboard Pendaftaran Ekskul</h1>
+    </header>
 
-    <section class="eksul-list">
-      <h2>Macam-Macam Ekskul</h2>
-      <div class="cards">
-        <div class="card">Basket</div>
-        <div class="card">Volly</div>
-        <div class="card">Futsal</div>
-        <div class="card">Pramuka</div>
-        <div class="card">Paskibra</div>
-        <div class="card">Handball</div>
-      </div>
-    </section>
+    <section class="eksul-list">
+      <h2>Macam-Macam Ekskul</h2>
+      
+            <a href="tambah_ekskul.html" class="button add-button">➕ Tambah Ekskul Baru</a>
 
-    <section class="schedule">
-      <h2>Jadwal Ekskul</h2>
-      <table>
-        <tr><th>Ekskul</th><th>Hari</th></tr>
-        <tr><td>Basket</td><td>Rabu & Kamis</td></tr>
-        <tr><td>Volly</td><td>Selasa & Kamis</td></tr>
-        <tr><td>Futsal</td><td>Jumat & Senin</td></tr>
-        <tr><td>Pramuka</td><td>Sabtu & Rabu</td></tr>
-        <tr><td>Paskibra</td><td>Senin & Kamis</td></tr>
-        <tr><td>Handball</td><td>Senin</td></tr>
-      </table>
-    </section>
+      <div class="cards">
+                <div class="card">
+          <span>Basket</span>
+          <a href="edit_ekskul.html?id=basket" class="action-button edit">✏️ Edit</a>
+        </div>
+        <div class="card">
+          <span>Volly</span>
+          <a href="edit_ekskul.html?id=volly" class="action-button edit">✏️ Edit</a>
+        </div>
+        <div class="card">
+          <span>Futsal</span>
+          <a href="edit_ekskul.html?id=futsal" class="action-button edit">✏️ Edit</a>
+        </div>
+        <div class="card">
+          <span>Pramuka</span>
+          <a href="edit_ekskul.html?id=pramuka" class="action-button edit">✏️ Edit</a>
+          </div>
+        <div class="card">
+          <span>Paskibra</span>
+          <a href="edit_ekskul.html?id=paskibra" class="action-button edit">✏️ Edit</a>
+        </div>
+        <div class="card">
+          <span>Handball</span>
+          <a href="edit_ekskul.html?id=handball" class="action-button edit">✏️ Edit</a>
+        </div>
+      </div>
+    </section>
 
-    
-  </main>
+    <section class="schedule">
+      <h2>Jadwal Ekskul</h2>
+      <table>
+        <thead>
+          <tr><th>Ekskul</th><th>Hari</th><th>Aksi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Basket</td><td>Rabu & Kamis</td><td><a href="edit_ekskul.html?id=basket" class="action-button edit">✏️ Edit</a></td></tr>
+          <tr><td>Volly</td><td>Selasa & Kamis</td><td><a href="edit_ekskul.html?id=volly" class="action-button edit">✏️ Edit</a></td></tr>
+          <tr><td>Futsal</td><td>Jumat & Senin</td><td><a href="edit_ekskul.html?id=futsal" class="action-button edit">✏️ Edit</a></td></tr>
+          <tr><td>Pramuka</td><td>Sabtu & Rabu</td><td><a href="edit_ekskul.html?id=pramuka" class="action-button edit">✏️ Edit</a></td></tr>
+          <tr><td>Paskibra</td><td>Senin & Kamis</td><td><a href="edit_ekskul.html?id=paskibra" class="action-button edit">✏️ Edit</a></td></tr>
+          <tr><td>Handball</td><td>Senin</td><td><a href="edit_ekskul.html?id=handball" class="action-button edit">✏️ Edit</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
 </body>
 </html>
