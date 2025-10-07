@@ -182,3 +182,104 @@ header h1 {
 .form-section button:hover {
   background: #38f9d7;
 }
+
+/* --- Tambahan untuk Tombol Aksi --- */
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.primary {
+    background-color: #007bff; /* Biru */
+    color: white;
+}
+
+.secondary {
+    background-color: #6c757d; /* Abu-abu */
+    color: white;
+}
+
+.add-button {
+    background-color: #28a745; /* Hijau */
+    color: white;
+    margin-bottom: 20px;
+    margin-right: auto; /* Untuk mengatur di bawah h2 */
+    display: table;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-button {
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+.action-button.edit {
+    background-color: #ffc107; /* Kuning */
+    color: #333;
+}
+
+/* Penyesuaian pada Card untuk menampung Aksi */
+.card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+/* Styling untuk Kolom Aksi di Tabel */
+.schedule table th:last-child,
+.schedule table td:last-child {
+    width: 100px; /* Lebar kolom aksi */
+    text-align: center;
+}
+
+/* --- Styling untuk Formulir Tambah/Edit --- */
+.form-ekskul-area {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* Secara default sembunyikan atau biarkan terlihat */
+    /* Jika Anda ingin menyembunyikannya secara default, gunakan: display: none; */
+}
+
+.ekskul-form {
+    margin-top: 15px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.ekskul-form .button {
+    margin-right: 10px;
+}
