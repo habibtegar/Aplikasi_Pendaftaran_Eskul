@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Ekskul</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>EkskulApp</h2>
+    <nav>
+      <a href="beranda.html">Beranda</a>
+      <a href="daftar.html">Daftar Ekskul</a>
+      <a href="index.html" class="logout">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header>
+      <h1>Edit Data Ekskul: Basket</h1>
+    </header>
+
+    <section class="form-ekskul-area">
+            <form action="beranda.html" method="GET" class="data-form">
+        <input type="hidden" name="id_ekskul" value="basket"> 
+
+        <div class="form-group">
+          <label for="nama">Nama Ekskul:</label>
+          <input type="text" id="nama" name="nama" required placeholder="">
+        </div>
+        <div class="form-group">
+          <label for="hari">Hari Pelaksanaan:</label>
+          <input type="text" id="hari" name="hari" required placeholder="">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="button primary">💾 Simpan Perubahan</button>
+          <a href="beranda.html" class="button secondary">Batal & Kembali</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
