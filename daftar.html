@@ -3,40 +3,209 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Pendaftaran Ekskul</title>
+  <title>Form Pendaftaran Ekskul - EkskulApp</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="index.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { fontFamily: { sans: ['Poppins', 'sans-serif'] } } }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    #sidebar { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+  </style>
 </head>
-<body>
-  <aside class="sidebar">
-    <h2>EkskulApp</h2>
-    <nav>
-      <a href="beranda.html">Beranda</a>
-      <a href="daftar.html">Daftar Ekskul</a>
-      <a href="index.html" class="logout">Logout</a>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex relative overflow-x-hidden font-sans antialiased">
+
+  <!-- Ambient Glow -->
+  <div class="absolute top-10 right-10 w-72 h-72 md:w-96 md:h-96 bg-blue-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
+  <div class="absolute bottom-10 left-10 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
+
+  <!-- Overlay -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden md:hidden" onclick="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed md:static top-0 left-0 h-full md:h-auto w-72 md:w-64 flex-shrink-0 bg-slate-900/95 md:bg-slate-900/60 backdrop-blur-xl border-r border-slate-800/80 flex flex-col p-6 z-40 -translate-x-full md:translate-x-0">
+    <button onclick="closeSidebar()" class="md:hidden absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
+      <i data-lucide="x" class="w-5 h-5"></i>
+    </button>
+    <div class="flex items-center gap-3 mb-10 px-2">
+      <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+        <i data-lucide="graduation-cap" class="text-white w-5 h-5"></i>
+      </div>
+      <span class="text-xl font-bold tracking-tight text-white">EkskulApp</span>
+    </div>
+    <nav class="space-y-1.5">
+      <a href="beranda.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span>Beranda</span>
+      </a>
+      <a href="daftar.html" class="flex items-center gap-3 px-4 py-3 text-cyan-400 font-semibold bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-l-4 border-cyan-500 rounded-r-xl transition-all duration-300">
+        <i data-lucide="user-plus" class="w-5 h-5"></i>
+        <span>Daftar Ekskul</span>
+      </a>
     </nav>
+    <div class="mt-auto pt-6 border-t border-slate-800/60">
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all duration-300">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+        <span>Logout</span>
+      </a>
+    </div>
   </aside>
 
-  <main class="main-content">
-    <header>
-      <h1>Dashboard Pendaftaran Ekskul</h1>
+  <!-- Main Wrapper -->
+  <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+
+    <!-- Mobile Topbar -->
+    <header class="md:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80">
+      <button onclick="openSidebar()" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
+          <i data-lucide="graduation-cap" class="text-white w-3.5 h-3.5"></i>
+        </div>
+        <span class="text-base font-bold text-white">EkskulApp</span>
+      </div>
+      <div id="mobileInitials" class="w-9 h-9 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-md">JD</div>
     </header>
 
-    <section class="form-section">
-      <h2>Form Pendaftaran Ekskul</h2>
-      <form>
-        <input type="text" placeholder="Nama" required>
-        <input type="text" placeholder="Kelas" required>
-        <select required>
-          <option value="">Pilih Ekskul</option>
-          <option>Basket</option>
-          <option>Volly</option>
-          <option>Futsal</option>
-          <option>Pramuka</option>
-          <option>Paskibra</option>
-          <option>Handball</option>
-        </select>
-        <input type="text" placeholder="Alasan" required>
-        <button type="submit">Daftar</button>
-      </form>
-    </section>
+    <main class="flex-1 p-4 md:p-10 relative z-10">
+      <!-- Desktop Header -->
+      <header class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-slate-800/60">
+        <div>
+          <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Form Pendaftaran Ekskul</h1>
+          <p class="text-slate-400 text-sm mt-1">Daftarkan diri Anda pada ekskul yang diinginkan</p>
+        </div>
+        <div class="flex items-center gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-2.5 pr-5 shadow-lg backdrop-blur-md">
+          <div id="profileInitials" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold shadow-md">JD</div>
+          <div>
+            <h4 id="profileName" class="text-sm font-semibold text-white">John Doe</h4>
+            <span id="profileClass" class="text-xs text-slate-400 font-medium">Siswa (XII RPL 1)</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Mobile Page Title -->
+      <div class="md:hidden mb-5">
+        <h1 class="text-xl font-bold text-white tracking-tight">Daftar Ekskul</h1>
+        <p class="text-slate-400 text-xs mt-0.5">Isi form untuk mendaftar ekskul pilihan Anda</p>
+      </div>
+
+      <!-- Form -->
+      <section class="max-w-2xl mx-auto">
+        <div class="w-full p-0.5 rounded-2xl bg-gradient-to-br from-blue-500/30 to-cyan-500/10 shadow-2xl">
+          <div class="bg-slate-900/90 backdrop-blur-2xl rounded-[15px] p-5 md:p-8">
+            <div class="flex items-center gap-3 mb-5 md:mb-6">
+              <div class="w-9 h-9 md:w-10 md:h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white">
+                <i data-lucide="clipboard-list" class="w-4 h-4 md:w-5 md:h-5"></i>
+              </div>
+              <h2 class="text-lg md:text-xl font-bold text-white tracking-tight">Formulir Pendaftaran</h2>
+            </div>
+
+            <form id="pendaftaranForm" class="space-y-4 md:space-y-5">
+              <div class="space-y-1.5">
+                <label class="text-[10px] md:text-xs font-semibold text-slate-300 tracking-wide uppercase">Nama Lengkap</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"><i data-lucide="user" class="w-4 h-4"></i></span>
+                  <input type="text" id="namaInput" placeholder="Masukkan nama Anda" required
+                    class="w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="text-[10px] md:text-xs font-semibold text-slate-300 tracking-wide uppercase">Kelas</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"><i data-lucide="graduation-cap" class="w-4 h-4"></i></span>
+                  <input type="text" id="kelasInput" placeholder="Masukkan kelas Anda" required
+                    class="w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="text-[10px] md:text-xs font-semibold text-slate-300 tracking-wide uppercase">Pilih Ekskul</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"><i data-lucide="award" class="w-4 h-4"></i></span>
+                  <select id="ekskulSelect" required
+                    class="w-full pl-10 pr-9 py-2.5 md:py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 appearance-none cursor-pointer text-sm">
+                    <option value="" class="bg-slate-900 text-slate-400">Pilih Ekskul</option>
+                    <option class="bg-slate-900 text-slate-100">Basket</option>
+                    <option class="bg-slate-900 text-slate-100">Volly</option>
+                    <option class="bg-slate-900 text-slate-100">Futsal</option>
+                    <option class="bg-slate-900 text-slate-100">Pramuka</option>
+                    <option class="bg-slate-900 text-slate-100">Paskibra</option>
+                    <option class="bg-slate-900 text-slate-100">Handball</option>
+                  </select>
+                  <span class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-slate-500"><i data-lucide="chevron-down" class="w-4 h-4"></i></span>
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="text-[10px] md:text-xs font-semibold text-slate-300 tracking-wide uppercase">Alasan Bergabung</label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"><i data-lucide="message-square" class="w-4 h-4"></i></span>
+                  <input type="text" id="alasanInput" placeholder="Alasan mengikuti ekskul ini" required
+                    class="w-full pl-10 pr-4 py-2.5 md:py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+                </div>
+              </div>
+              <div class="pt-3">
+                <button type="submit"
+                  class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm">
+                  Daftar Sekarang
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    function openSidebar() {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+      document.getElementById('sidebarOverlay').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      document.getElementById('sidebarOverlay').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    try {
+      const fullName = localStorage.getItem('fullName');
+      const kelas = localStorage.getItem('kelas');
+      if (fullName) {
+        document.getElementById('profileName').textContent = fullName;
+        document.getElementById('namaInput').value = fullName;
+        const initials = fullName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
+        document.getElementById('profileInitials').textContent = initials;
+        document.getElementById('mobileInitials').textContent = initials;
+      }
+      if (kelas) {
+        document.getElementById('profileClass').textContent = "Siswa (" + kelas + ")";
+        document.getElementById('kelasInput').value = kelas;
+      }
+    } catch (e) {}
+
+    document.getElementById('pendaftaranForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const registration = {
+        id: Date.now(),
+        nama: document.getElementById('namaInput').value,
+        kelas: document.getElementById('kelasInput').value,
+        ekskul: document.getElementById('ekskulSelect').value,
+        alasan: document.getElementById('alasanInput').value,
+        date: new Date().toLocaleDateString('id-ID')
+      };
+      try {
+        const list = JSON.parse(localStorage.getItem('pendaftarList') || '[]');
+        list.push(registration);
+        localStorage.setItem('pendaftarList', JSON.stringify(list));
+        window.location.href = 'beranda.html?daftar=sukses';
+      } catch (err) {
+        alert('Gagal memproses pendaftaran. Silakan coba lagi.');
+      }
+    });
+  </script>
+</body>
+</html>

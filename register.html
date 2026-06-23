@@ -1,23 +1,144 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register - Ekskul</title>
+  <title>Register - EkskulApp</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="auth-body">
-  <div class="auth-container">
-    <h2>Registrasi Akun</h2>
-    <form>
-      <input type="text" placeholder="Nama Lengkap" required>
-      <input type="text" placeholder="NISN" required>
-      <input type="text" placeholder="Kelas" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
-      <button type="submit">Daftar</button>
-    </form>
-    <p>Sudah punya akun? <a href="index.html">Login</a></p>
+<body class="h-full bg-slate-950 font-sans flex items-center justify-center relative overflow-hidden py-12">
+  <!-- Ambient Gradient Background Elements -->
+  <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-500 rounded-full blur-[128px] opacity-20 pointer-events-none"></div>
+  <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-500 rounded-full blur-[128px] opacity-20 pointer-events-none"></div>
+
+  <!-- Outer Glow Rings (SaaS Style) -->
+  <div class="w-full max-w-md p-0.5 rounded-2xl bg-gradient-to-br from-blue-500/30 to-cyan-500/10 shadow-2xl relative z-10 mx-4">
+    <!-- Card Content -->
+    <div class="bg-slate-900/90 backdrop-blur-2xl rounded-[15px] p-8 md:p-10 flex flex-col items-center">
+      <!-- Logo / Icon -->
+      <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20 mb-6">
+        <i data-lucide="user-plus" class="text-white w-6 h-6"></i>
+      </div>
+      
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">Registrasi Akun</h2>
+      <p class="text-slate-400 text-sm mb-6 text-center">Buat akun baru untuk mulai mendaftar ekskul pilihan</p>
+      
+      <form id="registerForm" class="w-full space-y-4">
+        <!-- Input Nama Lengkap -->
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Nama Lengkap</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i data-lucide="user" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="fullName" placeholder="Nama Lengkap Anda" required
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+          </div>
+        </div>
+
+        <!-- Input NISN -->
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">NISN</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i data-lucide="hash" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="nisn" placeholder="Nomor Induk Siswa Nasional" required
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+          </div>
+        </div>
+
+        <!-- Input Kelas -->
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Kelas</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+            </span>
+            <input type="text" id="kelas" placeholder="Contoh: XII RPL 1" required
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+          </div>
+        </div>
+
+        <!-- Input Email -->
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Email</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </span>
+            <input type="email" id="email" placeholder="alamat@email.com" required
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+          </div>
+        </div>
+
+        <!-- Input Password -->
+        <div class="space-y-1">
+          <label class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase">Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+              <i data-lucide="key-round" class="w-4 h-4"></i>
+            </span>
+            <input type="password" id="password" placeholder="••••••••" required
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200 text-sm">
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-3">
+          <button type="submit" 
+            class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 text-sm">
+            Daftar Akun
+          </button>
+        </div>
+      </form>
+
+      <!-- Footer links -->
+      <p class="text-slate-400 text-sm mt-6">
+        Sudah punya akun? 
+        <a href="index.html" class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors duration-200 ml-1">Login</a>
+      </p>
+    </div>
   </div>
+
+  <!-- Lucide Icons Script -->
+  <script>
+    lucide.createIcons();
+
+    // Register Form Handler
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const fullName = document.getElementById('fullName').value;
+      const nisn = document.getElementById('nisn').value;
+      const kelas = document.getElementById('kelas').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // Save to localStorage
+      localStorage.setItem('fullName', fullName);
+      localStorage.setItem('nisn', nisn);
+      localStorage.setItem('kelas', kelas);
+      localStorage.setItem('email', email);
+      localStorage.setItem('password', password);
+      localStorage.setItem('isRegistered', 'true');
+
+      // Redirect to login page with success param
+      window.location.href = 'index.html?registered=true';
+    });
+  </script>
 </body>
 </html>

@@ -1,42 +1,131 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tambah Ekskul Baru</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Ekskul Baru - EkskulApp</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
-  <aside class="sidebar">
-    <h2>EkskulApp</h2>
-    <nav>
-      <a href="beranda.html">Beranda</a>
-      <a href="daftar.html">Daftar Ekskul</a>
-      <a href="index.html" class="logout">Logou</a>
-    </nav>
-  </aside>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col md:flex-row relative overflow-x-hidden font-sans antialiased">
+  <!-- Ambient Glow Blurs -->
+  <div class="absolute top-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
+  <div class="absolute bottom-10 left-10 w-96 h-96 bg-cyan-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
 
-  <main class="main-content">
-    <header>
-      <h1>Tambah Ekskul Baru</h1>
-    </header>
+  <!-- Sidebar -->
+  <aside class="md:w-64 w-full flex-shrink-0 bg-slate-900/60 backdrop-blur-xl border-r border-slate-800/80 flex flex-col p-6 z-20">
+    <div class="flex items-center gap-3 mb-10 px-2">
+      <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+        <i data-lucide="graduation-cap" class="text-white w-5 h-5"></i>
+      </div>
+      <span class="text-xl font-bold tracking-tight text-white bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">EkskulApp</span>
+    </div>
+    
+    <nav class="space-y-1.5">
+      <a href="beranda.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span>Beranda</span>
+      </a>
+      <a href="daftar.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300">
+        <i data-lucide="user-plus" class="w-5 h-5"></i>
+        <span>Daftar Ekskul</span>
+      </a>
+    </nav>
+    
+    <div class="mt-auto pt-6 border-t border-slate-800/60">
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all duration-300">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
 
-    <section class="form-ekskul-area">
-            <form action="beranda.html" method="GET" class="data-form">
-        <div class="form-group">
-          <label for="nama">Nama Ekskul:</label>
-          <input type="text" id="nama" name="nama" required placeholder=>
-        </div>
-        <div class="form-group">
-          <label for="hari">Hari Pelaksanaan:</label>
-          <input type="text" id="hari" name="hari" required placeholder=>
-        </div>
-        <div class="form-actions">
-          <button type="submit" class="button primary">➕ Tambah Ekskul</button>
-          <a href="beranda.html" class="button secondary">Batal & Kembali</a>
-        </div>
-      </form>
-    </section>
-  </main>
+  <!-- Main Content -->
+  <main class="flex-1 min-w-0 p-6 md:p-10 relative z-10">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-slate-800/60">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Tambah Ekskul Baru</h1>
+        <p class="text-slate-400 text-sm mt-1">Buat dan tambahkan jenis ekskul baru di sekolah</p>
+      </div>
+      <div class="flex items-center gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-2.5 pr-5 self-start md:self-auto shadow-lg backdrop-blur-md">
+        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold shadow-md">
+          JD
+        </div>
+        <div>
+          <h4 class="text-sm font-semibold text-white">John Doe</h4>
+          <span class="text-xs text-slate-400 font-medium">Siswa (XII RPL 1)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Form Section -->
+    <section class="max-w-xl mx-auto">
+      <div class="w-full p-0.5 rounded-2xl bg-gradient-to-br from-blue-500/30 to-cyan-500/10 shadow-2xl">
+        <div class="bg-slate-900/90 backdrop-blur-2xl rounded-[15px] p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold">
+              <i data-lucide="plus-circle" class="w-5 h-5"></i>
+            </div>
+            <h2 class="text-xl font-bold text-white tracking-tight">Data Ekskul Baru</h2>
+          </div>
+
+          <form action="beranda.html" method="GET" class="space-y-5">
+            <!-- Nama Ekskul Input -->
+            <div class="space-y-1.5">
+              <label for="nama" class="text-xs font-semibold text-slate-300 tracking-wide uppercase">Nama Ekskul</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+                  <i data-lucide="award" class="w-4.5 h-4.5"></i>
+                </span>
+                <input type="text" id="nama" name="nama" placeholder="Masukkan nama ekskul baru" required
+                  class="w-full pl-11 pr-4 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200">
+              </div>
+            </div>
+
+            <!-- Hari Pelaksanaan Input -->
+            <div class="space-y-1.5">
+              <label for="hari" class="text-xs font-semibold text-slate-300 tracking-wide uppercase">Hari Pelaksanaan</label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500">
+                  <i data-lucide="calendar" class="w-4.5 h-4.5"></i>
+                </span>
+                <input type="text" id="hari" name="hari" placeholder="Contoh: Senin & Rabu" required
+                  class="w-full pl-11 pr-4 py-3 bg-slate-950/60 border border-slate-800 rounded-xl text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-400 transition-all duration-200">
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex flex-col sm:flex-row items-center gap-3 pt-4">
+              <button type="submit" 
+                class="w-full sm:flex-1 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2">
+                <i data-lucide="plus" class="w-4.5 h-4.5"></i>
+                <span>Tambah Ekskul</span>
+              </button>
+              <a href="beranda.html" 
+                class="w-full sm:w-auto text-center bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-semibold py-3 px-6 rounded-xl border border-slate-750 transition-colors duration-200">
+                Batal & Kembali
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
