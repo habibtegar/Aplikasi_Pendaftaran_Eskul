@@ -1,14 +1,11 @@
-/* Custom Styles for EkskulApp */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Smooth transition for hover effects */
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
 }
 
-/* Webkit Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

@@ -1,355 +1,487 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Ekskul - Beranda</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { fontFamily: { sans: ['Poppins', 'sans-serif'] } } }
-    }
-  </script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    #sidebar { transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
-  </style>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex relative overflow-x-hidden font-sans antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Ekskul - Beranda</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: { extend: { fontFamily: { sans: ['Poppins', 'sans-serif'] } } },
+      };
+      if (!localStorage.getItem('sessionUser')) {
+        window.location.href = 'index.html';
+      }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+      #sidebar {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-950 text-slate-100 min-h-screen flex relative overflow-x-hidden font-sans antialiased"
+  >
+    <div
+      class="absolute top-10 right-10 w-72 h-72 md:w-96 md:h-96 bg-blue-500 rounded-full blur-[128px] opacity-10 pointer-events-none"
+    ></div>
+    <div
+      class="absolute bottom-10 left-10 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-[128px] opacity-10 pointer-events-none"
+    ></div>
 
-  <!-- Ambient Glow -->
-  <div class="absolute top-10 right-10 w-72 h-72 md:w-96 md:h-96 bg-blue-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
-  <div class="absolute bottom-10 left-10 w-72 h-72 md:w-96 md:h-96 bg-cyan-500 rounded-full blur-[128px] opacity-10 pointer-events-none"></div>
+    <div
+      id="sidebarOverlay"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden md:hidden"
+      onclick="closeSidebar()"
+    ></div>
 
-  <!-- Sidebar Overlay (mobile) -->
-  <div id="sidebarOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 hidden md:hidden" onclick="closeSidebar()"></div>
-
-  <!-- Sidebar -->
-  <aside id="sidebar" class="fixed md:static top-0 left-0 h-full md:h-auto w-72 md:w-64 flex-shrink-0 bg-slate-900/95 md:bg-slate-900/60 backdrop-blur-xl border-r border-slate-800/80 flex flex-col p-6 z-40 -translate-x-full md:translate-x-0">
-    <!-- Close btn (mobile) -->
-    <button onclick="closeSidebar()" class="md:hidden absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">
-      <i data-lucide="x" class="w-5 h-5"></i>
-    </button>
-
-    <div class="flex items-center gap-3 mb-10 px-2">
-      <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-        <i data-lucide="graduation-cap" class="text-white w-5 h-5"></i>
-      </div>
-      <span class="text-xl font-bold tracking-tight text-white">EkskulApp</span>
-    </div>
-
-    <nav class="space-y-1.5">
-      <a href="beranda.html" class="flex items-center gap-3 px-4 py-3 text-cyan-400 font-semibold bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-l-4 border-cyan-500 rounded-r-xl transition-all duration-300">
-        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-        <span>Beranda</span>
-      </a>
-      <a href="daftar.html" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300">
-        <i data-lucide="user-plus" class="w-5 h-5"></i>
-        <span>Daftar Ekskul</span>
-      </a>
-    </nav>
-
-    <div class="mt-auto pt-6 border-t border-slate-800/60">
-      <a href="index.html" class="flex items-center gap-3 px-4 py-3 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all duration-300">
-        <i data-lucide="log-out" class="w-5 h-5"></i>
-        <span>Logout</span>
-      </a>
-    </div>
-  </aside>
-
-  <!-- Main Wrapper -->
-  <div class="flex-1 flex flex-col min-w-0 min-h-screen md:ml-0">
-
-    <!-- Mobile Top Bar -->
-    <header class="md:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80">
-      <button onclick="openSidebar()" class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors">
-        <i data-lucide="menu" class="w-5 h-5"></i>
+    <aside
+      id="sidebar"
+      class="fixed md:static top-0 left-0 h-full md:h-auto w-72 md:w-64 flex-shrink-0 bg-slate-900/95 md:bg-slate-900/60 backdrop-blur-xl border-r border-slate-800/80 flex flex-col p-6 z-40 -translate-x-full md:translate-x-0"
+    >
+      <button
+        onclick="closeSidebar()"
+        class="md:hidden absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+      >
+        <i data-lucide="x" class="w-5 h-5"></i>
       </button>
-      <div class="flex items-center gap-2">
-        <div class="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-          <i data-lucide="graduation-cap" class="text-white w-3.5 h-3.5"></i>
+      <div class="flex items-center gap-3 mb-10 px-2">
+        <div
+          class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20"
+        >
+          <i data-lucide="graduation-cap" class="text-white w-5 h-5"></i>
         </div>
-        <span class="text-base font-bold text-white">EkskulApp</span>
+        <span class="text-xl font-bold tracking-tight text-white"
+          >EkskulApp</span
+        >
       </div>
-      <div id="mobileInitials" class="w-9 h-9 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-md">JD</div>
-    </header>
+      <nav class="space-y-1.5">
+        <a
+          href="beranda.html"
+          class="flex items-center gap-3 px-4 py-3 text-cyan-400 font-semibold bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-l-4 border-cyan-500 rounded-r-xl transition-all duration-300"
+        >
+          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+          <span>Beranda</span>
+        </a>
+        <a
+          href="daftar.html"
+          class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded-xl transition-all duration-300"
+        >
+          <i data-lucide="user-plus" class="w-5 h-5"></i>
+          <span>Daftar Ekskul</span>
+        </a>
+      </nav>
+      <div class="mt-auto pt-6 border-t border-slate-800/60">
+        <button
+          id="logoutBtn"
+          class="w-full flex items-center gap-3 px-4 py-3 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-xl transition-all duration-300"
+        >
+          <i data-lucide="log-out" class="w-5 h-5"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
 
-    <!-- Page Content -->
-    <main class="flex-1 p-4 md:p-10 relative z-10">
-      <header class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-slate-800/60">
-        <div>
-          <h1 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Dashboard Pendaftaran Ekskul</h1>
-          <p class="text-slate-400 text-sm mt-1">Kelola dan lihat jadwal ekskul sekolah Anda</p>
-        </div>
-        <div class="flex items-center gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-2.5 pr-5 shadow-lg backdrop-blur-md">
-          <div id="profileInitials" class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold shadow-md">JD</div>
-          <div>
-            <h4 id="profileName" class="text-sm font-semibold text-white">John Doe</h4>
-            <span id="profileClass" class="text-xs text-slate-400 font-medium">Siswa (XII RPL 1)</span>
+    <div class="flex-1 flex flex-col min-w-0 min-h-screen md:ml-0">
+      <header
+        class="md:hidden sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80"
+      >
+        <button
+          onclick="openSidebar()"
+          class="w-9 h-9 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800 rounded-xl transition-colors"
+        >
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div class="flex items-center gap-2">
+          <div
+            class="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center"
+          >
+            <i data-lucide="graduation-cap" class="text-white w-3.5 h-3.5"></i>
           </div>
+          <span class="text-base font-bold text-white">EkskulApp</span>
+        </div>
+        <div
+          id="mobileInitials"
+          class="w-9 h-9 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white text-xs font-bold shadow-md"
+        >
+          ??
         </div>
       </header>
 
-      <!-- Mobile Page Title -->
-      <div class="md:hidden mb-5">
-        <h1 class="text-xl font-bold text-white tracking-tight">Dashboard</h1>
-        <p class="text-slate-400 text-xs mt-0.5">Lihat ekskul dan jadwal kegiatan sekolah</p>
-      </div>
-
-      <!-- Success Toast -->
-      <div id="successToast" class="hidden mb-5 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3">
-        <div class="w-9 h-9 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
-          <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-semibold text-emerald-300">Pendaftaran Ekskul Berhasil! 🎉</p>
-          <p class="text-xs text-emerald-400/70 mt-0.5">Data Anda telah berhasil disimpan. Tunggu konfirmasi dari pihak sekolah.</p>
-        </div>
-        <button onclick="document.getElementById('successToast').classList.add('hidden')" class="text-emerald-500/60 hover:text-emerald-400 transition-colors flex-shrink-0">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
-      </div>
-
-      <!-- Stats -->
-      <section class="mb-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <div class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-blue-500/40 transition-all duration-300 group">
+      <main class="flex-1 p-4 md:p-10 relative z-10">
+        <header
+          class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 pb-6 border-b border-slate-800/60"
+        >
+          <div>
+            <h1
+              class="text-2xl md:text-3xl font-bold text-white tracking-tight"
+            >
+              Dashboard Pendaftaran Ekskul
+            </h1>
+            <p class="text-slate-400 text-sm mt-1">
+              Kelola dan lihat jadwal ekskul sekolah Anda
+            </p>
+          </div>
+          <div
+            class="flex items-center gap-4 bg-slate-900/60 border border-slate-800/80 rounded-2xl p-2.5 pr-5 shadow-lg backdrop-blur-md"
+          >
+            <div
+              id="profileInitials"
+              class="w-10 h-10 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold shadow-md"
+            >
+              ??
+            </div>
             <div>
-              <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Total Ekskul</span>
-              <h3 class="text-3xl font-bold text-white mt-1.5 group-hover:text-blue-400 transition-colors">6</h3>
-              <p class="text-xs text-slate-400 mt-1">Ekskul Aktif</p>
-            </div>
-            <div class="w-11 h-11 md:w-12 md:h-12 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center group-hover:bg-blue-500/20 transition-all">
-              <i data-lucide="award" class="w-5 h-5 md:w-6 md:h-6"></i>
-            </div>
-          </div>
-          <div class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-cyan-500/40 transition-all duration-300 group">
-            <div>
-              <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Total Anggota</span>
-              <h3 class="text-3xl font-bold text-white mt-1.5 group-hover:text-cyan-400 transition-colors">150+</h3>
-              <p class="text-xs text-slate-400 mt-1">Siswa Terdaftar</p>
-            </div>
-            <div class="w-11 h-11 md:w-12 md:h-12 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-xl flex items-center justify-center group-hover:bg-cyan-500/20 transition-all">
-              <i data-lucide="users" class="w-5 h-5 md:w-6 md:h-6"></i>
+              <h4 id="profileName" class="text-sm font-semibold text-white">
+                -
+              </h4>
+              <span id="profileClass" class="text-xs text-slate-400 font-medium"
+                >Siswa</span
+              >
             </div>
           </div>
-          <div class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-indigo-500/40 transition-all duration-300 group sm:col-span-2 lg:col-span-1">
-            <div>
-              <span class="text-xs font-semibold text-slate-400 tracking-wider uppercase">Jadwal Hari Ini</span>
-              <h3 class="text-lg font-bold text-white mt-1.5 leading-snug group-hover:text-indigo-400 transition-colors">Futsal & Paskibra</h3>
-              <p class="text-xs text-slate-400 mt-0.5">Senin Pelaksanaan</p>
-            </div>
-            <div class="w-11 h-11 md:w-12 md:h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/20 transition-all">
-              <i data-lucide="calendar" class="w-5 h-5 md:w-6 md:h-6"></i>
-            </div>
-          </div>
+        </header>
+
+        <div class="md:hidden mb-5">
+          <h1 class="text-xl font-bold text-white tracking-tight">Dashboard</h1>
+          <p class="text-slate-400 text-xs mt-0.5">
+            Lihat ekskul dan jadwal kegiatan sekolah
+          </p>
         </div>
-      </section>
 
-      <!-- Ekskul Grid -->
-      <section class="mb-8">
-        <div class="flex items-center justify-between mb-5">
-          <h2 class="text-lg md:text-xl font-bold text-white tracking-tight">Macam-Macam Ekskul</h2>
+        <div
+          id="successToast"
+          class="hidden mb-5 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-3"
+        >
+          <div
+            class="w-9 h-9 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0"
+          >
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-emerald-300">
+              Pendaftaran Ekskul Berhasil! 🎉
+            </p>
+            <p class="text-xs text-emerald-400/70 mt-0.5">
+              Data Anda telah berhasil disimpan. Tunggu konfirmasi dari pihak
+              sekolah.
+            </p>
+          </div>
+          <button
+            onclick="
+              document.getElementById('successToast').classList.add('hidden')
+            "
+            class="text-emerald-500/60 hover:text-emerald-400 transition-colors flex-shrink-0"
+          >
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          <!-- Basket -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="dribbble" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Basket</h4>
-              <span class="text-xs text-slate-400">Rabu & Kamis</span>
-            </div>
-          </div>
-          <!-- Volly -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="volleyball" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Volly</h4>
-              <span class="text-xs text-slate-400">Selasa & Kamis</span>
-            </div>
-          </div>
-          <!-- Futsal -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="trophy" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Futsal</h4>
-              <span class="text-xs text-slate-400">Jumat & Senin</span>
-            </div>
-          </div>
-          <!-- Pramuka -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="compass" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Pramuka</h4>
-              <span class="text-xs text-slate-400">Sabtu & Rabu</span>
-            </div>
-          </div>
-          <!-- Paskibra -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="flag" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Paskibra</h4>
-              <span class="text-xs text-slate-400">Senin & Kamis</span>
-            </div>
-          </div>
-          <!-- Handball -->
-          <div class="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-cyan-500/40 hover:shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group">
-            <div class="absolute -right-10 -top-10 w-24 h-24 bg-cyan-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            <div class="flex items-start justify-between">
-              <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-cyan-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-blue-500 group-hover:to-cyan-400 transition-all duration-300">
-                <i data-lucide="hand" class="w-5 h-5 md:w-6 md:h-6"></i>
-              </div>
-              <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
-            </div>
-            <div class="mt-3">
-              <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">Handball</h4>
-              <span class="text-xs text-slate-400">Senin</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Schedule Table -->
-      <section class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6">
-        <h2 class="text-lg md:text-xl font-bold text-white tracking-tight mb-4 flex items-center gap-2">
-          <i data-lucide="calendar-range" class="w-5 h-5 text-cyan-400"></i>
-          <span>Jadwal Pelaksanaan Ekskul</span>
-        </h2>
-        <div class="overflow-x-auto -mx-1">
-          <table class="w-full text-left border-collapse min-w-[320px]">
-            <thead>
-              <tr class="border-b border-slate-800">
-                <th class="py-3 px-3 md:py-4 md:px-4 text-slate-400 font-semibold text-xs uppercase tracking-wider">Ekskul</th>
-                <th class="py-3 px-3 md:py-4 md:px-4 text-slate-400 font-semibold text-xs uppercase tracking-wider">Hari Pelaksanaan</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-800/60">
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-blue-500/10 text-blue-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="dribbble" class="w-4 h-4"></i></div>
-                    <span>Basket</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Rabu & Kamis</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="volleyball" class="w-4 h-4"></i></div>
-                    <span>Volly</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Selasa & Kamis</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-indigo-500/10 text-indigo-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="trophy" class="w-4 h-4"></i></div>
-                    <span>Futsal</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Jumat & Senin</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-amber-500/10 text-amber-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="compass" class="w-4 h-4"></i></div>
-                    <span>Pramuka</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Sabtu & Rabu</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-rose-500/10 text-rose-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="flag" class="w-4 h-4"></i></div>
-                    <span>Paskibra</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Senin & Kamis</td>
-              </tr>
-              <tr class="hover:bg-slate-800/30 transition-all duration-150">
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
-                  <div class="flex items-center gap-2 md:gap-3">
-                    <div class="w-7 h-7 md:w-8 md:h-8 bg-emerald-500/10 text-emerald-400 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="hand" class="w-4 h-4"></i></div>
-                    <span>Handball</span>
-                  </div>
-                </td>
-                <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">Senin</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-  </div>
+        <section class="mb-8">
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          >
+            <div
+              class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-blue-500/40 transition-all duration-300 group"
+            >
+              <div>
+                <span
+                  class="text-xs font-semibold text-slate-400 tracking-wider uppercase"
+                  >Total Ekskul</span
+                >
+                <h3
+                  id="statTotalEkskul"
+                  class="text-3xl font-bold text-white mt-1.5 group-hover:text-blue-400 transition-colors"
+                >
+                  0
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Ekskul Aktif</p>
+              </div>
+              <div
+                class="w-11 h-11 md:w-12 md:h-12 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-xl flex items-center justify-center group-hover:bg-blue-500/20 transition-all"
+              >
+                <i data-lucide="award" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-cyan-500/40 transition-all duration-300 group"
+            >
+              <div>
+                <span
+                  class="text-xs font-semibold text-slate-400 tracking-wider uppercase"
+                  >Total Pendaftar</span
+                >
+                <h3
+                  id="statTotalPendaftar"
+                  class="text-3xl font-bold text-white mt-1.5 group-hover:text-cyan-400 transition-colors"
+                >
+                  0
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Siswa Terdaftar</p>
+              </div>
+              <div
+                class="w-11 h-11 md:w-12 md:h-12 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-xl flex items-center justify-center group-hover:bg-cyan-500/20 transition-all"
+              >
+                <i data-lucide="users" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+            </div>
+            <div
+              class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-5 md:p-6 flex items-center justify-between hover:border-indigo-500/40 transition-all duration-300 group sm:col-span-2 lg:col-span-1"
+            >
+              <div>
+                <span
+                  class="text-xs font-semibold text-slate-400 tracking-wider uppercase"
+                  >Ekskul Terpopuler</span
+                >
+                <h3
+                  id="statPopular"
+                  class="text-lg font-bold text-white mt-1.5 leading-snug group-hover:text-indigo-400 transition-colors"
+                >
+                  -
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">
+                  Paling Banyak Dipilih
+                </p>
+              </div>
+              <div
+                class="w-11 h-11 md:w-12 md:h-12 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/20 transition-all"
+              >
+                <i data-lucide="trending-up" class="w-5 h-5 md:w-6 md:h-6"></i>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  <script>
-    lucide.createIcons();
+        <section class="mb-8">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-lg md:text-xl font-bold text-white tracking-tight">
+              Macam-Macam Ekskul
+            </h2>
+          </div>
+          <div
+            id="ekskulGrid"
+            class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+          ></div>
+        </section>
 
-    function openSidebar() {
-      document.getElementById('sidebar').classList.remove('-translate-x-full');
-      document.getElementById('sidebarOverlay').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.add('-translate-x-full');
-      document.getElementById('sidebarOverlay').classList.add('hidden');
-      document.body.style.overflow = '';
-    }
+        <section
+          class="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6"
+        >
+          <h2
+            class="text-lg md:text-xl font-bold text-white tracking-tight mb-4 flex items-center gap-2"
+          >
+            <i data-lucide="calendar-range" class="w-5 h-5 text-cyan-400"></i>
+            <span>Jadwal Pelaksanaan Ekskul</span>
+          </h2>
+          <div class="overflow-x-auto -mx-1">
+            <table class="w-full text-left border-collapse min-w-[320px]">
+              <thead>
+                <tr class="border-b border-slate-800">
+                  <th
+                    class="py-3 px-3 md:py-4 md:px-4 text-slate-400 font-semibold text-xs uppercase tracking-wider"
+                  >
+                    Ekskul
+                  </th>
+                  <th
+                    class="py-3 px-3 md:py-4 md:px-4 text-slate-400 font-semibold text-xs uppercase tracking-wider"
+                  >
+                    Hari Pelaksanaan
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                id="jadwalBody"
+                class="divide-y divide-slate-800/60"
+              ></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
 
-    try {
-      const fullName = localStorage.getItem('fullName');
-      const kelas = localStorage.getItem('kelas');
-      if (fullName) {
-        document.getElementById('profileName').textContent = fullName;
-        const initials = fullName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
-        document.getElementById('profileInitials').textContent = initials;
-        document.getElementById('mobileInitials').textContent = initials;
+    <script>
+      lucide.createIcons();
+
+      const session = JSON.parse(localStorage.getItem('sessionUser') || 'null');
+      if (!session) {
+        window.location.href = 'index.html';
       }
-      if (kelas) {
-        document.getElementById('profileClass').textContent = "Siswa (" + kelas + ")";
-      }
-    } catch (e) {}
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('daftar') === 'sukses') {
-      document.getElementById('successToast').classList.remove('hidden');
-      history.replaceState(null, '', 'beranda.html');
-      setTimeout(() => document.getElementById('successToast').classList.add('hidden'), 7000);
-    }
-  </script>
-</body>
+      const initials = session.fullName
+        .split(' ')
+        .map((n) => n[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
+      document.getElementById('profileName').textContent = session.fullName;
+      document.getElementById('profileClass').textContent =
+        'Siswa (' + session.kelas + ')';
+      document.getElementById('profileInitials').textContent = initials;
+      document.getElementById('mobileInitials').textContent = initials;
+
+      document
+        .getElementById('logoutBtn')
+        .addEventListener('click', function () {
+          localStorage.removeItem('sessionUser');
+          window.location.href = 'index.html';
+        });
+
+      function openSidebar() {
+        document
+          .getElementById('sidebar')
+          .classList.remove('-translate-x-full');
+        document.getElementById('sidebarOverlay').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeSidebar() {
+        document.getElementById('sidebar').classList.add('-translate-x-full');
+        document.getElementById('sidebarOverlay').classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      const iconMap = {
+        basket: 'dribbble',
+        volly: 'volleyball',
+        futsal: 'trophy',
+        pramuka: 'compass',
+        paskibra: 'flag',
+        handball: 'hand',
+        default: 'star',
+      };
+      const colorMap = [
+        'cyan',
+        'blue',
+        'indigo',
+        'amber',
+        'rose',
+        'emerald',
+        'violet',
+        'purple',
+        'orange',
+        'teal',
+      ];
+
+      function getIcon(nama) {
+        const key = nama.toLowerCase().replace(/\s/g, '');
+        return iconMap[key] || iconMap['default'];
+      }
+      function getColor(idx) {
+        return colorMap[idx % colorMap.length];
+      }
+
+      function getDefaultEkskul() {
+        return [
+          { id: 1, nama: 'Basket', hari: 'Rabu & Kamis' },
+          { id: 2, nama: 'Volly', hari: 'Selasa & Kamis' },
+          { id: 3, nama: 'Futsal', hari: 'Jumat & Senin' },
+          { id: 4, nama: 'Pramuka', hari: 'Sabtu & Rabu' },
+          { id: 5, nama: 'Paskibra', hari: 'Senin & Kamis' },
+          { id: 6, nama: 'Handball', hari: 'Senin' },
+        ];
+      }
+
+      function loadEkskul() {
+        const stored = localStorage.getItem('ekskulList');
+        if (!stored) {
+          localStorage.setItem(
+            'ekskulList',
+            JSON.stringify(getDefaultEkskul()),
+          );
+        }
+        return JSON.parse(localStorage.getItem('ekskulList') || '[]');
+      }
+
+      function renderDashboard() {
+        const ekskulList = loadEkskul();
+        const pendaftarList = JSON.parse(
+          localStorage.getItem('pendaftarList') || '[]',
+        );
+
+        document.getElementById('statTotalEkskul').textContent =
+          ekskulList.length;
+        document.getElementById('statTotalPendaftar').textContent =
+          pendaftarList.length;
+
+        if (pendaftarList.length > 0) {
+          const counter = {};
+          pendaftarList.forEach((p) => {
+            counter[p.ekskul] = (counter[p.ekskul] || 0) + 1;
+          });
+          const popular = Object.keys(counter).reduce((a, b) =>
+            counter[a] > counter[b] ? a : b,
+          );
+          document.getElementById('statPopular').textContent = popular;
+        }
+
+        const grid = document.getElementById('ekskulGrid');
+        grid.innerHTML = '';
+        ekskulList.forEach((ekskul, idx) => {
+          const color = getColor(idx);
+          const icon = getIcon(ekskul.nama);
+          const card = document.createElement('div');
+          card.className = `bg-slate-900/50 backdrop-blur-md border border-slate-800/80 rounded-2xl p-4 md:p-6 hover:border-${color}-500/40 hover:shadow-xl hover:shadow-${color}-500/10 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between min-h-[9rem] relative overflow-hidden group`;
+          card.innerHTML = `
+          <div class="absolute -right-10 -top-10 w-24 h-24 bg-${color}-500 rounded-full blur-[64px] opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+          <div class="flex items-start justify-between">
+            <div class="w-10 h-10 md:w-12 md:h-12 bg-slate-950/80 border border-slate-800 rounded-xl flex items-center justify-center text-${color}-400 group-hover:text-white group-hover:bg-gradient-to-br group-hover:from-${color}-600 group-hover:to-${color}-400 transition-all duration-300">
+              <i data-lucide="${icon}" class="w-5 h-5 md:w-6 md:h-6"></i>
+            </div>
+            <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-wider hidden sm:block">Ekskul</span>
+          </div>
+          <div class="mt-3">
+            <h4 class="text-sm md:text-lg font-bold text-white group-hover:text-${color}-300 transition-colors">${escHtml(ekskul.nama)}</h4>
+            <span class="text-xs text-slate-400">${escHtml(ekskul.hari)}</span>
+          </div>
+        `;
+          grid.appendChild(card);
+        });
+
+        const jadwalBody = document.getElementById('jadwalBody');
+        jadwalBody.innerHTML = '';
+        ekskulList.forEach((ekskul, idx) => {
+          const color = getColor(idx);
+          const icon = getIcon(ekskul.nama);
+          const row = document.createElement('tr');
+          row.className = 'hover:bg-slate-800/30 transition-all duration-150';
+          row.innerHTML = `
+          <td class="py-3 px-3 md:py-4 md:px-4 text-sm font-semibold text-white">
+            <div class="flex items-center gap-2 md:gap-3">
+              <div class="w-7 h-7 md:w-8 md:h-8 bg-${color}-500/10 text-${color}-400 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i data-lucide="${icon}" class="w-4 h-4"></i>
+              </div>
+              <span>${escHtml(ekskul.nama)}</span>
+            </div>
+          </td>
+          <td class="py-3 px-3 md:py-4 md:px-4 text-sm text-slate-300">${escHtml(ekskul.hari)}</td>
+        `;
+          jadwalBody.appendChild(row);
+        });
+
+        lucide.createIcons();
+      }
+
+      function escHtml(t) {
+        if (!t) return '';
+        return String(t)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('daftar') === 'sukses') {
+        document.getElementById('successToast').classList.remove('hidden');
+        history.replaceState(null, '', 'beranda.html');
+        setTimeout(
+          () => document.getElementById('successToast').classList.add('hidden'),
+          7000,
+        );
+      }
+
+      renderDashboard();
+    </script>
+  </body>
 </html>
